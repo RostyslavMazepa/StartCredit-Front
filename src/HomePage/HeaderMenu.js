@@ -54,6 +54,9 @@ export default class HeaderMenu extends React.Component {
             Navigation Four - Link
           </a>
         </Menu.Item>
+        <Menu.Item key="logout">
+          <a href="/login">Logout</a>
+        </Menu.Item>
       </Menu>
     );
   }
