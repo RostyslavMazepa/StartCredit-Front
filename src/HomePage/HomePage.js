@@ -16,6 +16,7 @@ const SubMenu = Menu.SubMenu;
 class HomePage extends React.Component {
   componentDidMount() {
     this.props.dispatch(userActions.getAll());
+    //console.log(this.props.history.location.pathname);
   }
 
   onCollapse = collapsed => {
@@ -29,6 +30,7 @@ class HomePage extends React.Component {
 
   render() {
     const { user, users } = this.props;
+    const history = this.props.history.location.pathname;
     return (
       <Layout style={{ minHeight: "100vh" }}>
         <Sider
@@ -45,8 +47,7 @@ class HomePage extends React.Component {
           </Header>
           <Content style={{ margin: "0 16px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+              <Breadcrumb.Item>Home{history}</Breadcrumb.Item>
             </Breadcrumb>
             <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
               Bill is a cat.

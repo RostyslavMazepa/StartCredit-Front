@@ -8,8 +8,8 @@ export default class SiderMenu extends React.Component {
     return (
       <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
         <Menu.Item key="1">
-          <Icon type="user" />
-          <span>User</span>
+          <Icon type="home" />
+          <span>Home</span>
         </Menu.Item>
         <Menu.Item key="2">
           <Icon type="desktop" />

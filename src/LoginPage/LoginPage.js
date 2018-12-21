@@ -6,7 +6,7 @@ import "./index.css";
 
 import { userActions } from "../_actions";
 
-import { Form, Icon, Input, Button, Checkbox } from "antd";
+import { Form, Icon, Input, Button, Checkbox, Spin } from "antd";
 
 const FormItem = Form.Item;
 
@@ -50,63 +50,66 @@ class LoginPage extends React.Component {
       <div className="content">
         <h2>Login</h2>
         <Form name="form" onSubmit={this.handleSubmit} className="login-form">
-          <FormItem
-            className={
-              "form-group" + (submitted && !password ? " has-error" : "")
-            }
-          >
-            <Input
-              type="text"
-              className="form-control"
-              name="username"
-              value={username}
-              onChange={this.handleChange}
-              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-              placeholder="Username"
-            />
-            {submitted && !username && (
-              <div className="help-block">Username is required</div>
-            )}
-          </FormItem>
-          <FormItem
-            className={
-              "form-group" + (submitted && !password ? " has-error" : "")
-            }
-          >
-            <Input
-              type="password"
-              className="form-control"
-              name="password"
-              value={password}
-              onChange={this.handleChange}
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-              placeholder="Password"
-            />
-            {submitted && !password && (
-              <div className="help-block">Password is required</div>
-            )}
-          </FormItem>
-
-          <FormItem>
-            <Checkbox>Remember me</Checkbox>
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
+          <Spin spinning={!!loggingIn}>
+            <FormItem
+              className={
+                "form-group" + (submitted && !password ? " has-error" : "")
+              }
             >
-              Login
-            </Button>
-            {loggingIn && (
-              <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            )}
-            Or{" "}
-            <Link to="/register" className="btn btn-link">
-              Register
-            </Link>
-          </FormItem>
+              <Input
+                type="text"
+                className="form-control"
+                name="username"
+                value={username}
+                onChange={this.handleChange}
+                prefix={
+                  <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                }
+                placeholder="Username"
+              />
+              {submitted && !username && (
+                <div className="help-block">Username is required</div>
+              )}
+            </FormItem>
+            <FormItem
+              className={
+                "form-group" + (submitted && !password ? " has-error" : "")
+              }
+            >
+              <Input
+                type="password"
+                className="form-control"
+                name="password"
+                value={password}
+                onChange={this.handleChange}
+                prefix={
+                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                }
+                placeholder="Password"
+              />
+              {submitted && !password && (
+                <div className="help-block">Password is required</div>
+              )}
+            </FormItem>
+
+            <FormItem>
+              <Checkbox>Remember me</Checkbox>
+              <a className="login-form-forgot" href="">
+                Forgot password
+              </a>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+              >
+                Login
+              </Button>
+              Or{" "}
+              <Link to="/register" className="btn btn-link">
+                Register
+              </Link>
+            </FormItem>
+          </Spin>
         </Form>
       </div>
     );
