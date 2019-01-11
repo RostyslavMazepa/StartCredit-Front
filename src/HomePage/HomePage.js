@@ -6,6 +6,8 @@ import { HomeContent } from "./HomeContent";
 import HeaderMenu from "./HeaderMenu";
 import SiderMenu from "./SiderMenu";
 
+import logo from "../assets/logo.svg";
+
 import "./index.css";
 
 import { userActions } from "../_actions";
@@ -38,7 +40,12 @@ class HomePage extends React.Component {
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
         >
-          <div className="logo" />
+          <div id="logo" className="logo">
+            <Link to="/">
+              <img src={logo} alt="logo" className="logo" />
+              <h1>Start Credit</h1>
+            </Link>
+          </div>
           <SiderMenu />
         </Sider>
         <Layout>
