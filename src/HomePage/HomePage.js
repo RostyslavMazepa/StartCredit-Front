@@ -43,7 +43,7 @@ class HomePage extends React.Component {
           <div id="logo" className="logo">
             <Link to="/">
               <img src={logo} alt="logo" className="logo" />
-              <h1>Start Credit</h1>
+              <span>Start Credit</span>
             </Link>
           </div>
           <SiderMenu />

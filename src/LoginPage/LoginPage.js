@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import "./index.css";
 
-import { userActions } from "../_actions";
+import { alertActions, userActions } from "../_actions";
 
 import { Form, Icon, Input, Button, Checkbox, Spin } from "antd";
 
@@ -15,12 +15,13 @@ class LoginPage extends React.Component {
     super(props);
 
     // reset login status
-    this.props.dispatch(userActions.logout());
+    this.props.dispatch(userActions.logout(), alertActions.clear());
 
     this.state = {
       username: "",
       password: "",
-      submitted: false
+      submitted: false,
+      alert: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -44,73 +45,85 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    const { loggingIn } = this.props;
+    const { loggingIn, alert } = this.props;
     const { username, password, submitted } = this.state;
     return (
-      <div className="content">
-        <h2>Login</h2>
-        <Form name="form" onSubmit={this.handleSubmit} className="login-form">
-          <Spin spinning={!!loggingIn}>
-            <FormItem
-              className={
-                "form-group" + (submitted && !password ? " has-error" : "")
-              }
-            >
-              <Input
-                type="text"
-                className="form-control"
-                name="username"
-                value={username}
-                onChange={this.handleChange}
-                prefix={
-                  <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                placeholder="Username"
-              />
-              {submitted && !username && (
-                <div className="help-block">Username is required</div>
-              )}
-            </FormItem>
-            <FormItem
-              className={
-                "form-group" + (submitted && !password ? " has-error" : "")
-              }
-            >
-              <Input
-                type="password"
-                className="form-control"
-                name="password"
-                value={password}
-                onChange={this.handleChange}
-                prefix={
-                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                placeholder="Password"
-              />
-              {submitted && !password && (
-                <div className="help-block">Password is required</div>
-              )}
-            </FormItem>
+      <div className="vertical-center">
+        <div className="content">
+          <div className="col-3">
+            <h2>Login</h2>
 
-            <FormItem>
-              <Checkbox>Remember me</Checkbox>
-              <a className="login-form-forgot" href="">
-                Forgot password
-              </a>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-              >
-                Login
-              </Button>
-              Or{" "}
-              <Link to="/register" className="btn btn-link">
-                Register
-              </Link>
-            </FormItem>
-          </Spin>
-        </Form>
+            <Form
+              name="form"
+              onSubmit={this.handleSubmit}
+              className="login-form"
+            >
+              {alert.message && (
+                <label className={`alert ${alert.type}`}>{alert.message}</label>
+              )}
+              <Spin spinning={!!loggingIn}>
+                <FormItem
+                  className={
+                    "form-group" + (submitted && !password ? " has-error" : "")
+                  }
+                >
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="username"
+                    value={username}
+                    onChange={this.handleChange}
+                    prefix={
+                      <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    placeholder="Username"
+                  />
+                  {submitted && !username && (
+                    <div className="help-block">Username is required</div>
+                  )}
+                </FormItem>
+                <FormItem
+                  className={
+                    "form-group" + (submitted && !password ? " has-error" : "")
+                  }
+                >
+                  <Input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    value={password}
+                    onChange={this.handleChange}
+                    prefix={
+                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    placeholder="Password"
+                  />
+                  {submitted && !password && (
+                    <div className="help-block">Password is required</div>
+                  )}
+                </FormItem>
+
+                <FormItem>
+                  <Checkbox>Remember me</Checkbox>
+                  <a className="login-form-forgot" href="">
+                    Forgot password
+                  </a>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="login-form-button"
+                  >
+                    Login
+                  </Button>
+                  Or{" "}
+                  <Link to="/register" className="btn btn-link">
+                    Register
+                  </Link>
+                </FormItem>
+              </Spin>
+            </Form>
+          </div>
+        </div>
       </div>
     );
   }
@@ -118,8 +131,10 @@ class LoginPage extends React.Component {
 
 function mapStateToProps(state) {
   const { loggingIn } = state.authentication;
+  const { alert } = state;
   return {
-    loggingIn
+    loggingIn,
+    alert
   };
 }
 
